@@ -3,7 +3,7 @@ const path = require('path');
 const { json } = require('stream/consumers');
 const app = express();
 const port = 8080;
-
+const connection = require('./db/connection');
 
 const routes = require('./routes');
 
