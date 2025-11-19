@@ -15,4 +15,6 @@ connection.connect(function(err) {
         console.log("Database created");
     })
 
-})
+});
+
+module.exports = db;
