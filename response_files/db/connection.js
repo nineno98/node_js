@@ -12,9 +12,37 @@ connection.connect(function(err) {
     console.log("Connected to the database!");
     connection.query("CREATE DATABASE IF NOT EXISTS mydb", function(err){
         if(err) throw err;
-        console.log("Database created");
-    })
+        else{
+            console.log("Database created");
+            connection.query("USE mydb", function(err){
+            if(err) throw err;
+            else{
+                console.log("Database in use: mydb");
+                const createTableQuery = `
+                CREATE TABLE IF NOT EXISTS texts (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    content TEXT NOT NULL,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                );
+                `;
+
+                connection.query(createTableQuery, (err) => {
+                    if (err) {
+                        console.error("Table creation error:", err);
+                    } else {
+                        console.log("Database initialized (tables checked).");
+                    }
+                });
+            }
+            
+            });
+        }
+
+        
+    });
+    
+
 
 });
 
-module.exports = db;
+module.exports = connection;
