@@ -16,6 +16,7 @@ app.use('/media', express.static(path.join(__dirname, '/public/static')));
 
 // Routes
 app.use('/', routes);
+app.use('/', require('./routes/api'));
 
 //Server
 app.listen(port, () =>{
