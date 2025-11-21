@@ -8,9 +8,28 @@
 <body>
     This is a second page... <br>
     <a href="/">Back to the main page</a> <br>
-    <form action="/text_input_post" method="post">
+    <form id="sendtext">
         Type text to here: <input type="text" name="usertext">
         <button type="submit">Send</button>
     </form>
 </body>
+<script>
+    document.getElementById("sendtext").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const data = {
+            usertext: e.target.usertext.value
+        };
+
+        const res = await fetch("/text_input_post", {
+            method:'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
+
+        const response = await res.json();
+        console.log(response);
+    });
+</script>
 </html>
