@@ -10,3 +10,13 @@ exports.sendText = (req, res) => {
         res.json({"message":"success!"})
     });
 }
+
+exports.getTexts = (req, res) => {
+    db.query("SELECT content FROM texts", (err, result) => {
+        if(err){
+            throw err;
+        }
+        const json = JSON.parse(JSON.stringify(result));
+        res.json(json);
+    })
+}
