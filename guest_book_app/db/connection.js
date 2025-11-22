@@ -25,12 +25,27 @@ connection.connect(function(err) {
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 );
                 `;
+                const createUsersTable = `
+                CREATE TABLE IF NOT EXISTS users (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                username VARCHAR(255) NOT NULL,
+                password_hash VARCHAR(255) NOT NULL
+                );
+                `
 
                 connection.query(createTableQuery, (err) => {
                     if (err) {
                         console.error("Table creation error:", err);
                     } else {
-                        console.log("Database initialized (tables checked).");
+                        console.log("Texts table crated.");
+                    }
+                });
+
+                connection.query(createUsersTable, (err) => {
+                    if (err) {
+                        console.error("Table creation error:", err);
+                    } else {
+                        console.log("Users table created.");
                     }
                 });
             }

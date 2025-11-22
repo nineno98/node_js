@@ -10,7 +10,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^6.0.0",
+    "body-parser": "^2.2.0",
+    "cjs": "^0.0.11",
     "express": "^5.1.0",
+    "express-session": "^1.18.2",
     "mysql": "^2.18.1"
   }
 }
