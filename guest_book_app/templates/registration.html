@@ -9,9 +9,20 @@
     <div>
         <form id="registration-form">
             <label for="usrename">Username</label>
-            <input type="text" name="username" required>
+            <input type="text" name="username" required> <br>
+
+            <label for="firstname">Firstname</label>
+            <input type="text" name="firstname" required> <br>
+
+            <label for="lastname">Lastname</label>
+            <input type="text" name="lastname" required> <br>
+
             <label for="password">Password</label>
-            <input type="text" name="password" required>
+            <input type="password" name="password" required> <br>
+
+            <label for="password_again">Password Again</label>
+            <input type="password" name="password_again" required> <br>
+
             <button type="submit">Registration</button>
         </form>
     </div>
@@ -21,8 +32,15 @@
         e.preventDefault();
         const data = {
             username: e.target.username.value,
+            firstname: e.target.firstname.value,
+            lastname: e.target.lastname.value,
             password: e.target.password.value
         };
+
+        if(e.target.password.value.localeCompare(e.target.password_again.value) != 0){
+            window.alert("A beírt jelszó nem egyezik!");
+            return 0;
+        } 
 
         const res = await fetch("/registration", {
             method: 'POST',
@@ -33,7 +51,10 @@
         });
 
         const response = await res.json();
-        console.log(response);
+        if(response.status === 'success'){
+            window.alert(response.message);
+            window.location.href = "/login";
+        }
     });
 </script>
 </html>

@@ -6,6 +6,43 @@
     <title>Login</title>
 </head>
 <body>
-    
+    <h2>Bejelentkezés</h2>
+    <div>
+        <form id="login-form">
+            <label for="username">Username</label>
+            <input type="text" name="username" required>
+            <label for="password">Password</label>
+            <input type="password" name="password" required>
+            <button type="submit">Login</button>
+        </form>
+    </div>
 </body>
+<script>
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const data = {
+            username: e.target.username.value,
+            password: e.target.password.value
+        }
+
+        const req = await fetch("/login", {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
+        const response = await req.json();
+        if(response.status === 'success'){
+            window.alert(response.message);
+            window.location.href = "/index";
+        }
+        else if(response.status === 'warning'){
+            window.alert(response.message);
+        }
+        else {
+            window.alert(response.message);
+        }
+    });
+</script>
 </html>

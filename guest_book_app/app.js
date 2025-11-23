@@ -27,8 +27,6 @@ app.use(session({
 }))
 
 
-
-
 // Routes
 app.use('/', routes);
 app.use('/', require('./routes/api'));
