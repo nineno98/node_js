@@ -4,7 +4,7 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const db = require('../db/connection');
-const {requireAuth} = require('../middlewares/auth');
+
 
 const registrationController = require('../controllers/registrationController');
 const loginController = require('../controllers/loginController');
@@ -21,6 +21,6 @@ router.get('/login', (req, res )=>{
 
 router.post('/login', loginController.loginUser);
 
-router.get('/logout', );
+router.get('/logout', loginController.logoutUser);
 
 module.exports = router;

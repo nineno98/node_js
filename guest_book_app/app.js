@@ -22,9 +22,9 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        secure: true
+        secure: false // false-ra átállítani mert https kell hozzá
     }
-}))
+}));
 
 
 // Routes
