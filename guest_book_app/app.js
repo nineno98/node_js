@@ -13,6 +13,7 @@ const bcrypt = require('bcrypt');
 app.use(express.urlencoded({ extended: true}));
 app.use(express.json());
 app.use('/media', express.static(path.join(__dirname, '/public/static')));
+app.use('/styles', express.static(path.join(__dirname, '/public/static/styles')));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

@@ -10,19 +10,21 @@ const connection = mysql.createConnection({
 connection.connect(function(err) {
     if(err)throw err;
     console.log("Connected to the database!");
-    connection.query("CREATE DATABASE IF NOT EXISTS mydb", function(err){
+    connection.query("CREATE DATABASE IF NOT EXISTS guest_book", function(err){
         if(err) throw err;
         else{
             console.log("Database created");
-            connection.query("USE mydb", function(err){
+            connection.query("USE guest_book", function(err){
             if(err) throw err;
             else{
-                console.log("Database in use: mydb");
-                const createTableQuery = `
+                console.log("Database in use: guest_book");
+                const createTextsTable = `
                 CREATE TABLE IF NOT EXISTS texts (
                     id INT AUTO_INCREMENT PRIMARY KEY,
                     content TEXT NOT NULL,
-                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    created_by INT NOT NULL,
+                    FOREIGN KEY (created_by) REFERENCES users(id)
                 );
                 `;
                 const createUsersTable = `
@@ -35,7 +37,7 @@ connection.connect(function(err) {
                 );
                 `
 
-                connection.query(createTableQuery, (err) => {
+                connection.query(createUsersTable, (err) => {
                     if (err) {
                         console.error("Table creation error:", err);
                     } else {
@@ -43,7 +45,7 @@ connection.connect(function(err) {
                     }
                 });
 
-                connection.query(createUsersTable, (err) => {
+                connection.query(createTextsTable, (err) => {
                     if (err) {
                         console.error("Table creation error:", err);
                     } else {

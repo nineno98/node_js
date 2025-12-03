@@ -1,0 +1,16 @@
+.texts-container{
+    text-align: justify;
+    width: 50%;
+    margin: auto;
+}
+.text_area{
+    background-color: rgb(175, 8, 8);
+    border-radius: 10px;
+    padding: 2%;
+    margin: 3%;
+}
+
+.text_area p{
+    color: whitesmoke;
+    font-family: Arial, Helvetica, sans-serif;
+}
