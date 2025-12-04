@@ -14,7 +14,6 @@ exports.sendText = (req, res) => {
                 {
                     "status":"success",
                     "message":"Bejegyzés sikeresen hozzáadva."
-
                 }
             )
         });
@@ -27,10 +26,8 @@ exports.sendText = (req, res) => {
 
                 }
             ) 
-    }
-    
+    } 
 }
-
 exports.getTexts = async (req, res) => {
     try{
         const query = 
@@ -45,5 +42,4 @@ exports.getTexts = async (req, res) => {
     catch (e){
         throw e;
     }
-    
 }
