@@ -1,6 +1,32 @@
+let x = document.cookie;
+console.log(x);
+
+async function fetchStatus(){
+    const response = await fetch('/status');
+    const data = await response.json();
+    
+    return data.isLogged;
+}
+
+async function setStatus(){
+    const loginStatus = document.getElementById('loginStatus');
+    const status = await fetchStatus();
+    console.log(status);
+    if(status){
+        loginStatus.textContent = "Logout";
+    }
+    else{
+        loginStatus.textContent = "Login";
+    }
+    
+
+}
+
+
 const root = document.getElementById('root');
 window.onload = function(){
     fetchMessages();
+    setStatus();
 }
 
 async function fetchMessages(){

@@ -4,7 +4,7 @@ const router = express.Router();
 const {requireAuth}  = require("../middlewares/auth");
 
 
-router.get('/index', requireAuth, (req, res) => {
+router.get('/index', (req, res) => {
     res.sendFile(path.join(__dirname, '../templates/index.html'))
 });
 

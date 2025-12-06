@@ -23,7 +23,8 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        secure: false // false-ra átállítani mert https kell hozzá
+        secure: false,// false-ra átállítani mert https kell hozzá
+        httpOnly: true 
     }
 }));
 
