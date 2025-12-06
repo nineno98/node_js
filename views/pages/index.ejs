@@ -2,10 +2,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Index Page</title>
+    <link rel="stylesheet" href="/styles/index.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <meta name="user-status" content="<%= isLoggedIn %>">
 </head>
 <body>
     
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">GuestBookApp</a>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Send a post</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <% if (isLoggedIn) { %>
+                        <a class="nav-link active" aria-current="page" href="/logout" id="loginStatus">Logout</a>
+                    <% } else { %>
+                        <a class="nav-link active" aria-current="page" href="/login" id="loginStatus">Login</a>
+                    <% } %>
+                    
+                </div>
+            </div>
+        </div>
+    </nav>
+    <a href="/send" class="btn btn-primary">Send a text</a>
+    <a href="/logout" class="btn btn-danger">Logout</a>
+    <div class="texts-container">
+        <div class="container">
+            <div id="root">
+
+            </div>
+        </div>
+    </div>
+    
+    
+    <script src="/media/index.js"></script>
 </body>
 </html>

@@ -8,6 +8,7 @@ const session = require('express-session');
 const routes = require('./routes');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
+const ejs = require("ejs");
 
 // Middleware
 app.use(express.urlencoded({ extended: true}));
@@ -27,7 +28,7 @@ app.use(session({
         httpOnly: true 
     }
 }));
-
+app.set("view engine", "ejs")
 
 // Routes
 app.use('/', routes);

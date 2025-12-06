@@ -56,7 +56,8 @@ exports.logoutUser = (req, res, next) => {
                 if(err){
                     return next(err);
                 } else {
-                    return res.redirect('/login');
+                    const isLoggedIn = !!req.session?.userId;
+                    return res.render("pages/index", {isLoggedIn});
                 }
             });
         }
