@@ -16,7 +16,11 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Send a post</a>
+                        <% if (isLoggedIn) { %>
+                            <a class="nav-link active" aria-current="page" href="/send">Send a post</a>
+                        <% } else { %>
+                            <a class="nav-link disabled" aria-disabled="true" href="#">Send a post</a>
+                        <% } %>
                     </li>
                 </ul>
                 <div class="d-flex">
@@ -30,8 +34,6 @@
             </div>
         </div>
     </nav>
-    <a href="/send" class="btn btn-primary">Send a text</a>
-    <a href="/logout" class="btn btn-danger">Logout</a>
     <div class="texts-container">
         <div class="container">
             <div id="root">

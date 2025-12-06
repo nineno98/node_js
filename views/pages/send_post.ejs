@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a post</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">GuestBookApp</a>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link disabled" aria-disabled="true" href="#">Send a post</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <% if (isLoggedIn) { %>
+                        <a class="nav-link active" aria-current="page" href="/logout" id="loginStatus">Logout</a>
+                    <% } else { %>
+                        <a class="nav-link active" aria-current="page" href="/login" id="loginStatus">Login</a>
+                    <% } %>
+                    
+                </div>
+            </div>
+        </div>
+    </nav>
+</body>
+</html>

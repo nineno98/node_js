@@ -9,6 +9,19 @@ const db = require('../db/connection');
 const registrationController = require('../controllers/registrationController');
 const loginController = require('../controllers/loginController');
 
+
+const {requireAuth}  = require("../middlewares/auth");
+
+
+router.get('/index', (req, res) => {
+    const isLoggedIn = !!req.session?.userId;
+    res.render("pages/index", {isLoggedIn});
+});
+
+router.get('/send', requireAuth, (req, res) => {
+    res.sendFile(path.join(__dirname, '../templates/send_page.html'))
+});
+
 router.get('/registration', (req, res)=> {
     res.sendFile(path.join(__dirname, '../templates/registration.html'));
 });
@@ -17,6 +30,7 @@ router.post('/registration', registrationController.registrateUser);
 
 router.get('/login', (req, res )=>{
     res.sendFile(path.join(__dirname, '../templates/login.html'))
+    
 });
 
 router.post('/login', loginController.loginUser);

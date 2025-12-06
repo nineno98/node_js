@@ -5,7 +5,6 @@ const app = express();
 const port = 8080;
 const connection = require('./db/connection');
 const session = require('express-session');
-const routes = require('./routes');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const ejs = require("ejs");
@@ -31,7 +30,6 @@ app.use(session({
 app.set("view engine", "ejs")
 
 // Routes
-app.use('/', routes);
 app.use('/', require('./routes/api'));
 app.use('/', require('./routes/user_routes'));
 
