@@ -29,7 +29,8 @@ router.get('/registration', (req, res)=> {
 router.post('/registration', registrationController.registrateUser);
 
 router.get('/login', (req, res )=>{
-    res.sendFile(path.join(__dirname, '../templates/login.html'))
+    //res.sendFile(path.join(__dirname, '../templates/login.html'))
+    res.render("pages/login");
     
 });
 
