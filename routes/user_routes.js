@@ -24,7 +24,8 @@ router.get('/send', requireAuth, (req, res) => {
 
 router.get('/registration', (req, res)=> {
     //res.sendFile(path.join(__dirname, '../templates/registration.html'));
-    res.render("pages/registration")
+    const isLoggedIn = !!req.session?.userId;
+    res.render("pages/registration", {isLoggedIn})
 });
 
 router.post('/registration', registrationController.registrateUser);

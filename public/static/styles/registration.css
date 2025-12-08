@@ -1,8 +1,11 @@
 .registration-container{
-    width: 80%;
+    width: 50%;
     margin: auto;
     background-color: antiquewhite;
-    height: 90vh;
+    height: 100%;
+    padding: 15px;
+    margin-top: 25px;
+    border-radius: 25px;
 }
 
 #registration-form{
