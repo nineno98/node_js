@@ -1,10 +1,20 @@
 .registration-container{
     width: 80%;
     margin: auto;
+    background-color: antiquewhite;
+    height: 90vh;
 }
 
 #registration-form{
     width: 80%;
     margin: auto;
     align-items: center;
+    gap: 5px;
+    display: flex;
+    flex-direction: column;
+}
+.reg-form-item{
+
+    display: flex;
+    flex-direction: column;
 }
