@@ -10,14 +10,14 @@
 </head>
 <body>
     
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light nav-header">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">GuestBookApp</a>
+            <a class="navbar-brand" href="/index">GuestBookApp</a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <% if (isLoggedIn) { %>
-                            <a class="nav-link active" aria-current="page" href="/send">Send a post</a>
+                            <a class="nav-link active post-send" aria-current="page" href="/send">Send a post</a>
                         <% } else { %>
                             <a class="nav-link disabled" aria-disabled="true" href="#">Send a post</a>
                         <% } %>
@@ -25,18 +25,18 @@
                 </ul>
                 <div class="d-flex">
                     <% if (isLoggedIn) { %>
-                        <a class="nav-link active" aria-current="page" href="/logout" id="loginStatus">Logout</a>
+                        <a class="nav-link active index-buttons" aria-current="page" href="/logout" id="loginStatus">Logout</a>
                     <% } else { %>
-                        <a class="nav-link active" aria-current="page" href="/login" id="loginStatus">Sign In</a>
-                        <a class="nav-link active" aria-current="page" href="/registration" id="loginStatus">Sign Up</a>
+                        <a class="nav-link active index-buttons" aria-current="page" href="/login" id="loginStatus">Sign In</a>
+                        <a class="nav-link active index-buttons" aria-current="page" href="/registration" id="loginStatus">Sign Up</a>
                     <% } %>
                     
                 </div>
             </div>
         </div>
     </nav>
-    <div class="texts-container">
-        <div class="container">
+    <div class="page-container">
+        <div class="posts-container">
             <div id="root">
 
             </div>

@@ -28,6 +28,7 @@ fetchMessages().then(data => {
         p.textContent = element.content;
         const span = document.createElement("span");
         span.textContent = element.username;
+        span.classList.add("crated-by-span");
         div_area.appendChild(p);
         div_area.appendChild(span);
         root.appendChild(div_area);

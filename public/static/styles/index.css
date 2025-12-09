@@ -1,7 +1,18 @@
-.texts-container{
-    text-align: justify;
-    width: 50%;
+body{
+    background-color: #FCD0A1 !important;
+}
+.posts-container{
+    width: 90%;
     margin: auto;
+    
+}
+.page-container{
+    text-align: justify;
+    width: 80%;
+    margin: auto;
+    padding-top: 60px;
+    height: 100vh;
+    
 }
 .text_area{
     background-color: rgb(175, 8, 8);
@@ -13,4 +24,27 @@
 .text_area p{
     color: whitesmoke;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+.nav-header{
+    background-color: #E7C7A9;
+    position: fixed !important;
+    width: 100%;
+    height: 60px;
+}
+.crated-by-span{
+    color: whitesmoke;
+}
+.index-buttons{
+    border: 1px solid transparent;
+}
+.index-buttons:hover{
+    border: 1px solid #59A5D7;
+}
+.post-send{
+    color: #0d6efd !important;
+    border: 1px solid transparent;
+}
+.post-send:hover{
+    border: 1px solid #59A5D7;
 }
