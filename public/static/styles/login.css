@@ -1,18 +1,44 @@
+body{
+    background-color: #FCD0A1 !important;
+    
+}
+
 .sign-in-container{
     display: flex;
     flex-direction: column;
     margin: auto;
     align-items: center;
+    padding-top: 70px;
+    width: 50%;
+    height: 50%;
+    
+    padding-bottom: 50px;
+    
+    
 }
 
 #login-form{
     display: flex;
     flex-direction: column;
     gap: 15px;
-    
+    align-items: center;
 }
 
 .login-form-container{
     align-items: center;
     margin: auto;
+    background-color: #B69674;
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+}
+.nav-header{
+    background-color: #E7C7A9;
+    position: fixed !important;
+    width: 100%;
+    height: 60px;
+}
+.button-log{
+    width: 100%;
 }
