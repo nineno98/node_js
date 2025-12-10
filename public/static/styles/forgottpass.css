@@ -1,0 +1,20 @@
+.forgott-pass-container{
+    width: 60%;
+    margin: auto;
+    padding-top: 100px;
+}
+.forgot-pass-form{
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    align-items: center;
+    margin: auto;
+    background-color: #B69674;
+    padding: 20px;
+    border-radius: 15px;
+}
+.forgot-pass-form input{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 80%;
+}
