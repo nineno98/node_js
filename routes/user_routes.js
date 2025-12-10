@@ -8,6 +8,7 @@ const db = require('../db/connection');
 
 const registrationController = require('../controllers/registrationController');
 const loginController = require('../controllers/loginController');
+const resetpassController = require('../controllers/resetpassController');
 
 
 const {requireAuth}  = require("../middlewares/auth");
@@ -43,6 +44,8 @@ router.get('/logout', loginController.logoutUser);
 router.get("/forgott-password", (req, res) => {
     res.render("pages/forgottpass");
 });
+
+router.post("/forgott-password", resetpassController.resetPassword);
 
 
 module.exports = router;
