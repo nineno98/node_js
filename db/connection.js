@@ -33,7 +33,8 @@ connection.connect(function(err) {
                 username VARCHAR(255) NOT NULL,
                 firstname VARCHAR(255) NOT NULL,
                 lastname VARCHAR(255) NOT NULL,
-                password_hash VARCHAR(255) NOT NULL
+                password_hash VARCHAR(255) NOT NULL,
+                email VARCHAR(255) NOT NULL UNIQUE
                 );
                 `
 

@@ -40,4 +40,9 @@ router.post('/login', loginController.loginUser);
 
 router.get('/logout', loginController.logoutUser);
 
+router.get("/forgott-password", (req, res) => {
+    res.render("pages/forgottpass");
+});
+
+
 module.exports = router;
