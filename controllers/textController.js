@@ -36,10 +36,11 @@ exports.getTexts = async (req, res) => {
         db.query(query, async (err, result) => {
             if(err) throw err;
         const json = JSON.parse(JSON.stringify(result));
-        res.json(json);
+        return res.json(json);
         })
     }
     catch (e){
-        throw e;
+        console.log(e);
+        
     }
 }
