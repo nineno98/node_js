@@ -3,7 +3,7 @@ const path = require('path');
 const { json } = require('stream/consumers');
 const app = express();
 const port = 8080;
-const connection = require('./db/connection');
+const initDB = require('./db/connection');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
@@ -32,6 +32,15 @@ app.set("view engine", "ejs")
 // Routes
 app.use('/', require('./routes/api'));
 app.use('/', require('./routes/user_routes'));
+
+(async () => {
+    try{
+        await initDB();
+        console.log("Database initialization finished");
+    }catch(err){
+        console.log(err);
+    }
+})();
 
 //Server
 app.listen(port, () =>{
