@@ -1,6 +1,39 @@
-const db = require('../db/connection');
+//const db = require('../db/connection');
+const {pool} = require('../db/connection');
 
-exports.sendText = (req, res) => {
+exports.sendText = async (req, res) => {
+    const text = req.body.usertext;
+    if(req.session.userId && req.body.usertext != ""){
+        const userID = req.session.userId
+        const query = "INSERT INTO texts (content, created_by) VALUES (?, ?)";
+        try{
+            pool.query(query, [text, userID], (err, results, fields) => {
+                if (err) console.log(err);
+                console.log("Text inserted");
+                res.json(
+                    {
+                        "status":"success",
+                        "message":"Bejegyzés sikeresen hozzáadva."
+                    }
+                )
+            })
+        }
+        catch (e){
+            console.log(e);
+        }
+    }
+    else{
+        res.json(
+                {
+                    "status":"error",
+                    "message":"Hiba történt a mentés során."
+                }
+            )
+    }
+}
+
+
+/*exports.sendText = (req, res) => {
     const text = req.body.usertext;
     if(req.session.userId && req.body.usertext != ""){
         const userID = req.session.userId
@@ -43,4 +76,4 @@ exports.getTexts = async (req, res) => {
         console.log(e);
         
     }
-}
+}*/

@@ -45,7 +45,24 @@ async function initDB() {
     }
 }
 
-module.exports = initDB;
+//module.exports = initDB;
+
+const pool = mysql.createPool({
+  host: 'localhost',
+  user: 'root',
+  password: '',
+  database: 'guest_book',
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
+});
+
+module.exports = {
+  pool,
+  initDB
+};
+
+
 
 /*
 const connection = mysql.createConnection({
