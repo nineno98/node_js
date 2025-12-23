@@ -7,10 +7,10 @@ exports.sendText = async (req, res) => {
         const userID = req.session.userId
         const query = "INSERT INTO texts (content, created_by) VALUES (?, ?)";
         try{
-            pool.query(query, [text, userID], (err, results, fields) => {
+            await pool.query(query, [text, userID], (err, results, fields) => {
                 if (err) console.log(err);
                 console.log("Text inserted");
-                res.json(
+                return res.json(
                     {
                         "status":"success",
                         "message":"Bejegyzés sikeresen hozzáadva."
@@ -23,12 +23,32 @@ exports.sendText = async (req, res) => {
         }
     }
     else{
-        res.json(
+        return res.json(
                 {
                     "status":"error",
                     "message":"Hiba történt a mentés során."
                 }
             )
+    }
+}
+exports.getTexts = async (req, res) => {
+    try{
+        const query = 
+        `SELECT content, username 
+        FROM texts INNER JOIN users ON texts.created_by = users.id;`
+        await pool.query(query, (err, results, fields) => {
+            if (err) console.log(err);
+            console.log("Get all texts.");
+            const json = JSON.parse(JSON.stringify(results));
+            return res.json(json);
+        })
+    }
+    catch (e){
+        console.log("Error: "+e);
+        return res.json({
+            "status":"error",
+            "message":"Error in select."
+        })
     }
 }
 
