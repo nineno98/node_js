@@ -1,4 +1,4 @@
-const db = require("../db/connection");
+const {pool} = require("../db/connection");
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 
@@ -11,7 +11,7 @@ exports.resetPassword = async (req, res) => {
     
     if(isValidEmail(email)){
         try{
-            const [rows] = await db.query("SELECT email FROM users WHERE email = ?", [email]);
+            const [rows] = await pool.query("SELECT email FROM users WHERE email = ?", [email]);
             if(rows.length === 0) return res.json({
                 "status":"error",
                 "message":"There is no such email address in the database."
