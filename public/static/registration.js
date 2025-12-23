@@ -22,6 +22,7 @@ document.getElementById('registration-form').addEventListener('submit', async (e
         });
 
         const response = await res.json();
+        console.log(response);
         if(response.status === 'success'){
             window.alert(response.message);
             window.location.href = "/login";

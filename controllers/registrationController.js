@@ -10,6 +10,7 @@ exports.registrateUser = async (req, res) => {
                 "status": "error",
                 "message": "Nem lehet üres mező!"
             });
+        console.log("body")
         const [username_rows] = await pool.query("SELECT username, email FROM users WHERE username = ? or email = ?", 
             [username, email]);
         if(username_rows.length > 0){
@@ -22,19 +23,12 @@ exports.registrateUser = async (req, res) => {
         }
         const hashed_password = await bcrypt.hash(password, 10);
         await pool.query("INSERT INTO users (username, firstname, lastname, password_hash, email) VALUES (?, ?, ?, ?, ?)", 
-            [username, firstname, lastname, hashed_password, email], 
-            (err, results, fields) => {
-                if(err){
-                    return res.json({
-                        "status": "error",
-                        "message": "Error in insert query!"
-                    })
-                }
-                return res.json({
+            [username, firstname, lastname, hashed_password, email])
+        console.log("success")
+        return res.json({
                     "status": "success",
                     "message": "Successfull registration!"
                 });
-            })
     }
     catch (e){
         return res.json({

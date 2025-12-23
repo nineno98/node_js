@@ -13,6 +13,7 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
             body: JSON.stringify(data)
         });
         const response = await req.json();
+        console.log(response);
         if(response.status === 'success'){
             
             window.location.href = "/index";

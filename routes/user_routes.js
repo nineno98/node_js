@@ -3,7 +3,7 @@ const path = require('path');
 const router = express.Router();
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
-const db = require('../db/connection');
+//const db = require('../db/connection');
 
 
 const registrationController = require('../controllers/registrationController');

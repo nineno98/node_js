@@ -1,7 +1,67 @@
-const db = require('../db/connection');
+//const db = require('../db/connection');
+const {pool} = require('../db/connection');
 const bcrypt = require('bcrypt');
 
+exports.loginUser = async (req, res) => {
+    try{
+        const {username, password} = req.body;
+        if(!username || !password){
+            return res.json({
+                "status":"error",
+                "message":"No username or password"
+            });
+        }
+        const query = "SELECT username, password_hash, id FROM users WHERE username = ?";
+        const [rows] = await pool.query(query, [username])
+        
+        if(rows.length ===0){
+            return res.status(401).json({
+                "status":"error",
+                "message":"The user name or password is incorrect."
+            })
+        }
+        const user = rows[0];
+        const isValid = await bcrypt.compare(password, user.password_hash);
 
+        if(isValid){
+            req.session.userId = user.id;
+                return res.json({
+                    "status":"success",
+                    "message":"Sikeres bejelentkezés!"
+                });
+        }
+        else{
+            return res.json({
+                "status":"error",
+                "message":"Password incorrect!"
+            });
+        }
+    }catch (e){
+            console.log("err2"+e)
+                return res.json({
+                        "status":"error",
+                        "message":e
+                    });
+            }
+}
+exports.logoutUser = async (req, res, next) => {
+    try{
+        if(req.session){
+            req.session.destroy(function (err){
+                if(err){
+                    return next(err);
+                } else {
+                    const isLoggedIn = !!req.session?.userId;
+                    return res.render("pages/index", {isLoggedIn});
+                }
+            });
+        }
+    }
+    catch (e) {
+        throw e;
+    }
+}
+/*
 exports.loginUser = async (req, res) => {
     try{
         const {username, password} = req.body;
@@ -65,4 +125,4 @@ exports.logoutUser = (req, res, next) => {
     catch (e) {
         throw e;
     }
-}
+}*/
