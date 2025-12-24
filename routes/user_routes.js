@@ -20,7 +20,9 @@ router.get('/index', (req, res) => {
 });
 
 router.get('/send', requireAuth, (req, res) => {
-    res.sendFile(path.join(__dirname, '../templates/send_page.html'))
+    //res.sendFile(path.join(__dirname, '../templates/send_page.html'))
+    const isLoggedIn = !!req.session?.userId;
+    res.render('pages/send_post', {isLoggedIn})
 });
 
 router.get('/registration', (req, res)=> {

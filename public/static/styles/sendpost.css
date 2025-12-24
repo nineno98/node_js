@@ -1,0 +1,12 @@
+body{
+    background-color: #FCD0A1 !important;
+}
+
+.add-post-container{
+    width: 90%;
+    margin: auto;
+}
+
+#sendtext{
+    margin: auto;
+}

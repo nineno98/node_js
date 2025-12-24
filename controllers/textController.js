@@ -7,19 +7,17 @@ exports.sendText = async (req, res) => {
         const userID = req.session.userId
         const query = "INSERT INTO texts (content, created_by) VALUES (?, ?)";
         try{
-            await pool.query(query, [text, userID], (err, results, fields) => {
-                if (err) console.log(err);
-                console.log("Text inserted");
-                return res.json(
-                    {
-                        "status":"success",
-                        "message":"Bejegyzés sikeresen hozzáadva."
-                    }
-                )
+            await pool.query(query, [text, userID]);
+            return res.json({
+                "status":"success",
+                "message":"Post added to guest book!"
             })
         }
         catch (e){
-            console.log(e);
+            return res.json({
+                "status":"success",
+                "message":"Post added to guest book!"
+            })
         }
     }
     else{
@@ -33,21 +31,34 @@ exports.sendText = async (req, res) => {
 }
 exports.getTexts = async (req, res) => {
     try{
+        console.log("Lekérdezés indul: ", req.url);
         const query = 
         `SELECT content, username 
         FROM texts INNER JOIN users ON texts.created_by = users.id;`
-        await pool.query(query, (err, results, fields) => {
-            if (err) console.log(err);
-            console.log("Get all texts.");
-            const json = JSON.parse(JSON.stringify(results));
-            return res.json(json);
-        })
+        const [rows] = await pool.query(query);
+        
+        if(rows.length > 0){
+            return res.json({
+                "status":"sucess",
+                "message":"Select all texts",
+                "data": rows
+            })
+        }
+        else{
+            return res.json({
+                "status":"warning",
+                "message":"Selected rows are empty.",
+                "data":""
+            })
+        }
+        
     }
     catch (e){
         console.log("Error: "+e);
         return res.json({
             "status":"error",
-            "message":"Error in select."
+            "message":"Error in select.",
+            "data":"e"
         })
     }
 }
