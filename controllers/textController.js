@@ -31,9 +31,9 @@ exports.sendText = async (req, res) => {
 }
 exports.getTexts = async (req, res) => {
     try{
-        console.log("Lekérdezés indul: ", req.url);
+        
         const query = 
-        `SELECT content, username 
+        `SELECT users.id, content, username 
         FROM texts INNER JOIN users ON texts.created_by = users.id;`
         const [rows] = await pool.query(query);
         

@@ -39,6 +39,18 @@ async function initDB() {
                 `
         await connection.query(createUsersTable);
         console.log("Table created: users");
+
+        const createVotesTable = `
+                CREATE TABLE IF NOT EXISTS votes (
+                    user_id INT NOT NULL,
+                    post_id INT NOT NULL,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    FOREIGN KEY (post_id) REFERENCES texts(id)
+                );
+        `
+        await connection.query(createVotesTable);
+        console.log("Table created: votes");
     }
     catch (e) {
         console.log("Error: "+e);

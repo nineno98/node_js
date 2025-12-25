@@ -7,6 +7,8 @@ router.post("/text_input_post", textController.sendText);
 
 router.get("/get_all_text", textController.getTexts);
 
+router.post("/add_vote", )
+
 router.get("/status", (req, res) => {
     res.json({"isLogged": !! req.session.userId })
 })

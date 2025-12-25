@@ -3,6 +3,22 @@ const colors = ['darkred', 'darkblue', 'darkgreen',
     ];
 const root = document.getElementById('root');
 
+async function handleVote(vote, post_id){
+    console.log("handlevode")
+    const data = {
+        vote:vote,
+        post_id:post_id
+    }
+    const req = await fetch("",{
+        headers:{
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    });
+    const response = await req.json();
+    console.log(response);
+}
+
 function renderMessages(data){
     data.forEach(element => {
         const div_area = document.createElement('div');
@@ -16,8 +32,16 @@ function renderMessages(data){
         span.textContent = element.username;
         span.classList.add("crated-by-span");
 
+        const like = document.createElement('a');
+        like.textContent = "Like";
+        like.onclick=(event) => {
+            event.preventDefault();
+            handleVote(1, element.id);
+        }
+
         div_area.appendChild(p);
         div_area.appendChild(span);
+        div_area.appendChild(like);
         root.appendChild(div_area);
         
     });
