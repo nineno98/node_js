@@ -10,7 +10,6 @@ exports.registrateUser = async (req, res) => {
                 "status": "error",
                 "message": "Nem lehet üres mező!"
             });
-        console.log("body")
         const [username_rows] = await pool.query("SELECT username, email FROM users WHERE username = ? or email = ?", 
             [username, email]);
         if(username_rows.length > 0){

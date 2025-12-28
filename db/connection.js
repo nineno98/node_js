@@ -42,6 +42,7 @@ async function initDB() {
 
         const createVotesTable = `
                 CREATE TABLE IF NOT EXISTS votes (
+                    value INT NOT NULL,
                     user_id INT NOT NULL,
                     post_id INT NOT NULL,
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

@@ -2,6 +2,7 @@ const colors = ['darkred', 'darkblue', 'darkgreen',
     'darkorange', 'grey', 'darkgreen', 'darkred'
     ];
 const root = document.getElementById('root');
+const votes = document.createElement('p');
 
 async function handleVote(vote, post_id){
     console.log("handlevode")
@@ -9,14 +10,16 @@ async function handleVote(vote, post_id){
         vote:vote,
         post_id:post_id
     }
-    const req = await fetch("",{
+    const req = await fetch("/add_vote",{
+        method: 'POST',
         headers:{
             "Content-Type": "application/json"
         },
         body: JSON.stringify(data)
     });
     const response = await req.json();
-    console.log(response);
+    console.log(response.message);
+    votes.textContent = response.message;
 }
 
 function renderMessages(data){
@@ -39,9 +42,20 @@ function renderMessages(data){
             handleVote(1, element.id);
         }
 
+        const dislike = document.createElement('a');
+        dislike.textContent = "Dislike";
+        dislike.onclick = (event) => {
+            event.preventDefault();
+            handleVote(-1, element.id);
+        }
+
+        votes.textContent = element.votes;
+
         div_area.appendChild(p);
         div_area.appendChild(span);
         div_area.appendChild(like);
+        div_area.appendChild(votes);
+        div_area.appendChild(dislike);
         root.appendChild(div_area);
         
     });

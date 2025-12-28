@@ -33,8 +33,9 @@ exports.getTexts = async (req, res) => {
     try{
         
         const query = 
-        `SELECT users.id, content, username 
-        FROM texts INNER JOIN users ON texts.created_by = users.id;`
+        `SELECT texts.id, content, username, SUM(value) AS votes
+            FROM texts INNER JOIN users ON texts.created_by = users.id
+            INNER JOIN votes ON texts.id = votes.post_id;`
         const [rows] = await pool.query(query);
         
         if(rows.length > 0){
