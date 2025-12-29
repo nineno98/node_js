@@ -33,11 +33,15 @@ exports.getTexts = async (req, res) => {
     try{
         
         const query = 
-        `SELECT texts.id, content, username, SUM(value) AS votes
-            FROM texts INNER JOIN users ON texts.created_by = users.id
-            INNER JOIN votes ON texts.id = votes.post_id;`
+        `SELECT texts.id, content, username, SUM(votes.value) AS vote 
+            FROM users 
+            INNER JOIN texts 
+                ON users.id = texts.created_by 
+            LEFT JOIN votes 
+                ON texts.id = votes.post_id
+            GROUP BY texts.id; `
         const [rows] = await pool.query(query);
-        
+        console.log(rows)
         if(rows.length > 0){
             return res.json({
                 "status":"sucess",

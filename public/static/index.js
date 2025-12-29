@@ -18,7 +18,7 @@ async function handleVote(vote, post_id){
         body: JSON.stringify(data)
     });
     const response = await req.json();
-    console.log(response.message);
+    
     votes.textContent = response.message;
 }
 
@@ -64,7 +64,7 @@ function renderMessages(data){
 async function fetchMessages(){
     const response = await fetch("/get_all_text");
     const data = await response.json();
-    console.log(data.status)
+    console.log(data.data)
     if(data.status == "sucess"){
         renderMessages(data.data);
     }
