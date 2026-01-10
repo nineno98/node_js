@@ -20,13 +20,13 @@ router.get('/index', (req, res) => {
 });
 
 router.get('/send', requireAuth, (req, res) => {
-    //res.sendFile(path.join(__dirname, '../templates/send_page.html'))
+    
     const isLoggedIn = !!req.session?.userId;
     res.render('pages/send_post', {isLoggedIn})
 });
 
 router.get('/registration', (req, res)=> {
-    //res.sendFile(path.join(__dirname, '../templates/registration.html'));
+    
     const isLoggedIn = !!req.session?.userId;
     res.render("pages/registration", {isLoggedIn})
 });
@@ -34,7 +34,7 @@ router.get('/registration', (req, res)=> {
 router.post('/registration', registrationController.registrateUser);
 
 router.get('/login', (req, res )=>{
-    //res.sendFile(path.join(__dirname, '../templates/login.html'))
+    
     res.render("pages/login");
     
 });

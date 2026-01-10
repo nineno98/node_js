@@ -5,8 +5,28 @@ body{
 .add-post-container{
     width: 90%;
     margin: auto;
+    margin-top: 15px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
 }
 
 #sendtext{
     margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 75%;
+    
+    
+}
+.nav-header{
+    background-color: #E7C7A9;
+}
+#sendtext button{
+    width: 150px;
+    margin: auto;
+}
+#usertext{
+    height: 300px;
 }
