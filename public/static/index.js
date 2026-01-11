@@ -2,9 +2,9 @@ const colors = ['darkred', 'darkblue', 'darkgreen',
     'darkorange', 'grey', 'darkgreen', 'darkred'
     ];
 const root = document.getElementById('root');
-const votes = document.createElement('p');
 
-async function handleVote(vote, post_id){
+
+async function handleVote(vote, post_id, vote){
     console.log("handlevode")
     const data = {
         vote:vote,
@@ -19,7 +19,7 @@ async function handleVote(vote, post_id){
     });
     const response = await req.json();
     
-    votes.textContent = response.message;
+    vote.textContent = response.message;
 }
 
 function renderMessages(data){
@@ -28,6 +28,9 @@ function renderMessages(data){
         div_area.classList.add("text_area");
         div_area.style.backgroundColor = colors[getRandomInt(colors.length)];
         
+        const vote = document.createElement('p');
+        vote.textContent = element.votes;
+
         const p = document.createElement('p');
         p.textContent = element.content;
 
@@ -40,23 +43,22 @@ function renderMessages(data){
 
         const like = document.createElement('a');
         like.textContent = "Like";
-        like.setAttribute('id', `like-${element.id}`);
         like.onclick=(event) => {
             event.preventDefault();
-            handleVote(1, element.id);
+            handleVote(1, element.id, vote);
         }
 
         const dislike = document.createElement('a');
         dislike.textContent = "Dislike";
         dislike.onclick = (event) => {
             event.preventDefault();
-            handleVote(-1, element.id);
+            handleVote(-1, element.id, vote);
         }
 
-        votes.textContent = element.votes;
+        
 
         votes_container.appendChild(like);
-        votes_container.appendChild(votes);
+        votes_container.appendChild(vote);
         votes_container.appendChild(dislike);
 
         div_area.appendChild(p);
