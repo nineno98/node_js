@@ -35,8 +35,12 @@ function renderMessages(data){
         span.textContent = element.username;
         span.classList.add("crated-by-span");
 
+        const votes_container = document.createElement('div');
+        votes_container.classList.add('votes-container');
+
         const like = document.createElement('a');
         like.textContent = "Like";
+        like.setAttribute('id', `like-${element.id}`);
         like.onclick=(event) => {
             event.preventDefault();
             handleVote(1, element.id);
@@ -51,11 +55,15 @@ function renderMessages(data){
 
         votes.textContent = element.votes;
 
+        votes_container.appendChild(like);
+        votes_container.appendChild(votes);
+        votes_container.appendChild(dislike);
+
         div_area.appendChild(p);
         div_area.appendChild(span);
-        div_area.appendChild(like);
-        div_area.appendChild(votes);
-        div_area.appendChild(dislike);
+        
+        div_area.appendChild(votes_container);
+
         root.appendChild(div_area);
         
     });
