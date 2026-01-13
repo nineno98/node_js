@@ -48,3 +48,9 @@ body{
 .post-send:hover{
     border: 1px solid #59A5D7;
 }
+
+.votes-container{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}

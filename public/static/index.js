@@ -4,8 +4,8 @@ const colors = ['darkred', 'darkblue', 'darkgreen',
 const root = document.getElementById('root');
 
 
-async function handleVote(vote, post_id, vote){
-    console.log("handlevode")
+async function handleVote(vote, post_id, voteRatio){
+    
     const data = {
         vote:vote,
         post_id:post_id
@@ -19,7 +19,7 @@ async function handleVote(vote, post_id, vote){
     });
     const response = await req.json();
     
-    vote.textContent = response.message;
+    voteRatio.textContent = response.message;
 }
 
 function renderMessages(data){
@@ -28,41 +28,41 @@ function renderMessages(data){
         div_area.classList.add("text_area");
         div_area.style.backgroundColor = colors[getRandomInt(colors.length)];
         
-        const vote = document.createElement('p');
-        vote.textContent = element.votes;
+        const voteRatio = document.createElement('p');
+        voteRatio.textContent = element.vote;
 
         const p = document.createElement('p');
         p.textContent = element.content;
 
         const span = document.createElement("span");
-        span.textContent = element.username;
+        span.textContent = `Created by ${element.username}`;
         span.classList.add("crated-by-span");
 
         const votes_container = document.createElement('div');
         votes_container.classList.add('votes-container');
 
         const like = document.createElement('a');
-        like.textContent = "Like";
+        like.textContent = "^";
         like.onclick=(event) => {
             event.preventDefault();
-            handleVote(1, element.id, vote);
+            handleVote(1, element.id, voteRatio);
         }
 
         const dislike = document.createElement('a');
-        dislike.textContent = "Dislike";
+        dislike.textContent = "ˇ";
         dislike.onclick = (event) => {
             event.preventDefault();
-            handleVote(-1, element.id, vote);
+            handleVote(-1, element.id, voteRatio);
         }
 
         
-
+        votes_container.appendChild(span);
         votes_container.appendChild(like);
-        votes_container.appendChild(vote);
+        votes_container.appendChild(voteRatio);
         votes_container.appendChild(dislike);
 
         div_area.appendChild(p);
-        div_area.appendChild(span);
+        
         
         div_area.appendChild(votes_container);
 
