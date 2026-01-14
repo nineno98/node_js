@@ -4,7 +4,7 @@ const colors = ['darkred', 'darkblue', 'darkgreen',
 const root = document.getElementById('root');
 
 
-async function handleVote(vote, post_id, voteRatio){
+async function addVote(vote, post_id, voteRatio){
     
     const data = {
         vote:vote,
@@ -19,6 +19,21 @@ async function handleVote(vote, post_id, voteRatio){
     });
     const response = await req.json();
     
+    voteRatio.textContent = response.message;
+}
+
+async function deleteVote(post_id, voteRatio) {
+    const data = {
+        post_id:post_id
+    }
+    const req = await fetch("/delete_vote", {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    });
+    const response = await req.json();
     voteRatio.textContent = response.message;
 }
 
@@ -43,19 +58,35 @@ function renderMessages(data){
 
         const like = document.createElement('a');
         like.classList.add("bi");
-        like.classList.add("bi-hand-thumbs-up");
-        like.onclick=(event) => {
-            event.preventDefault();
-            handleVote(1, element.id, voteRatio);
+        if(element.vote === 1){
+            like.classList.add("bi-hand-thumbs-up-fill");          
         }
+        else{
+            like.classList.add("bi-hand-thumbs-up");
+        }
+        
+        
+        
+        
 
         const dislike = document.createElement('a');
         dislike.classList.add("bi");
-        dislike.classList.add("bi-hand-thumbs-down");
-        dislike.onclick = (event) => {
+        if(element.vote === -1){
+            dislike.classList.add("bi-hand-thumbs-down-fill");
+            dislike.onclick = (event) => {
             event.preventDefault();
-            handleVote(-1, element.id, voteRatio);
+            deleteVote(element.id, voteRatio);
+            }
+            
         }
+        else{
+            dislike.classList.add("bi-hand-thumbs-down");
+            dislike.onclick = (event) => {
+            event.preventDefault();
+            addVote(-1, element.id, voteRatio);
+            }
+        }
+        
 
         
         votes_container.appendChild(span);
@@ -76,7 +107,7 @@ function renderMessages(data){
 async function fetchMessages(){
     const response = await fetch("/get_all_text");
     const data = await response.json();
-    console.log(data.data)
+    
     if(data.status == "sucess"){
         renderMessages(data.data);
     }

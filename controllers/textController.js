@@ -47,7 +47,7 @@ exports.getTexts = async (req, res) => {
             const userID = req.session.userId
             query = 
                 `SELECT texts.id, content, username,
-                SUM(votes.value) AS vote,
+                votes.value AS vote,
                 (SELECT count(value) FROM votes WHERE post_id = texts.id AND user_id = ${userID}) as liked
                     FROM users 
                     INNER JOIN texts 
