@@ -1,9 +1,9 @@
-//const db = require('../db/connection');
+
 const {pool} = require('../db/connection');
 
 exports.sendText = async (req, res) => {
     const text = req.body.usertext;
-    if(req.session.userId && req.body.usertext != ""){
+    if(!req.session.userId || !req.body.usertext){
         const userID = req.session.userId
         const query = "INSERT INTO texts (content, created_by) VALUES (?, ?)";
         try{
@@ -32,16 +32,33 @@ exports.sendText = async (req, res) => {
 exports.getTexts = async (req, res) => {
     try{
         
-        const query = 
-        `SELECT texts.id, content, username, SUM(votes.value) AS vote 
-            FROM users 
-            INNER JOIN texts 
-                ON users.id = texts.created_by 
-            LEFT JOIN votes 
-                ON texts.id = votes.post_id
-            GROUP BY texts.id; `
+        let query = "";
+        if(!req.session.userId){
+            query = 
+                `SELECT texts.id, content, username,
+                SUM(votes.value) AS vote 
+                FROM users 
+                INNER JOIN texts 
+                    ON users.id = texts.created_by 
+                LEFT JOIN votes 
+                    ON texts.id = votes.post_id
+                GROUP BY texts.id; ` 
+        }else{
+            const userID = req.session.userId
+            query = 
+                `SELECT texts.id, content, username,
+                SUM(votes.value) AS vote,
+                (SELECT count(value) FROM votes WHERE post_id = texts.id AND user_id = ${userID}) as liked
+                    FROM users 
+                    INNER JOIN texts 
+                        ON users.id = texts.created_by 
+                    LEFT JOIN votes 
+                        ON texts.id = votes.post_id
+                    GROUP BY texts.id;`
+        }
+        
         const [rows] = await pool.query(query);
-        console.log(rows)
+        
         if(rows.length > 0){
             return res.json({
                 "status":"sucess",
@@ -59,11 +76,10 @@ exports.getTexts = async (req, res) => {
         
     }
     catch (e){
-        console.log("Error: "+e);
+        console.log(e);
         return res.json({
             "status":"error",
-            "message":"Error in select.",
-            "data":"e"
+            "message":"Error in select."
         })
     }
 }

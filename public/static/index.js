@@ -42,14 +42,16 @@ function renderMessages(data){
         votes_container.classList.add('votes-container');
 
         const like = document.createElement('a');
-        like.textContent = "^";
+        like.classList.add("bi");
+        like.classList.add("bi-hand-thumbs-up");
         like.onclick=(event) => {
             event.preventDefault();
             handleVote(1, element.id, voteRatio);
         }
 
         const dislike = document.createElement('a');
-        dislike.textContent = "ˇ";
+        dislike.classList.add("bi");
+        dislike.classList.add("bi-hand-thumbs-down");
         dislike.onclick = (event) => {
             event.preventDefault();
             handleVote(-1, element.id, voteRatio);
