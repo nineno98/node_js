@@ -5,6 +5,7 @@ const root = document.getElementById('root');
 
 
 async function addVote(vote, post_id, voteRatio){
+    console.log("addvote");
     
     const data = {
         vote:vote,
@@ -23,6 +24,7 @@ async function addVote(vote, post_id, voteRatio){
 }
 
 async function deleteVote(post_id, voteRatio) {
+    console.log("deletevote");
     const data = {
         post_id:post_id
     }
@@ -64,6 +66,20 @@ function renderMessages(data){
         else{
             like.classList.add("bi-hand-thumbs-up");
         }
+        like.onclick= (event) => {
+            event.preventDefault();
+            if(element.vote === 1){
+                deleteVote(element.id, voteRatio);
+                like.classList.remove("bi-hand-thumbs-up-fill");
+                like.classList.add("bi-hand-thumbs-up");
+            }
+            else{
+                addVote(1, element.id, voteRatio);
+                like.classList.remove("bi-hand-thumbs-up");
+                like.classList.add("bi-hand-thumbs-up-fill");
+
+            }
+        };
         
         
         

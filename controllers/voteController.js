@@ -58,11 +58,11 @@ exports.addVote = async (req, res) => {
 
 exports.deleteVote = async (req, res) => {
     try{
-        const {vote, post_id} = req.body;
-        if(!vote || !post_id){
+        const { post_id} = req.body;
+        if(!post_id){
             return res.json({
                 "status":"error",
-                "message":"no vote or post_id in request."
+                "message":"no post_id in request."
             });
         }
         const userId = req.session.userId;
