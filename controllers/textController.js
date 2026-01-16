@@ -2,36 +2,35 @@
 const {pool} = require('../db/connection');
 
 exports.sendText = async (req, res) => {
-    const text = req.body.usertext;
-    if(!req.session.userId || !req.body.usertext){
-        const userID = req.session.userId
-        const query = "INSERT INTO texts (content, created_by) VALUES (?, ?)";
-        try{
+    try{
+        
+        if(req.session.userId || req.body.usertext){
+            const text = req.body.usertext;
+            const userID = req.session.userId
+            const query = "INSERT INTO texts (content, created_by) VALUES (?, ?)";
             await pool.query(query, [text, userID]);
-            return res.json({
-                "status":"success",
-                "message":"Post added to guest book!"
-            })
+                return res.json({
+                    "status":"success",
+                    "message":"Post added to guest book!"
+                });
         }
-        catch (e){
-            return res.json({
-                "status":"success",
-                "message":"Post added to guest book!"
-            })
-        }
-    }
-    else{
-        return res.json(
+        else{
+            return res.json(
                 {
                     "status":"error",
                     "message":"Hiba történt a mentés során."
-                }
-            )
+                });
+        }
+    }catch(e){
+        return res.json({
+                "status":"success",
+                "message":"Post added to guest book!"
+            });
     }
+    
 }
 exports.getTexts = async (req, res) => {
     try{
-        
         let query = "";
         if(!req.session.userId){
             query = 
@@ -73,7 +72,6 @@ exports.getTexts = async (req, res) => {
                 "data":""
             })
         }
-        
     }
     catch (e){
         console.log(e);

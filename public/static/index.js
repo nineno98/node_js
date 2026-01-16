@@ -41,6 +41,7 @@ async function deleteVote(post_id, voteRatio) {
 
 function renderMessages(data){
     data.forEach(element => {
+        let isLiked = false;
         const div_area = document.createElement('div');
         div_area.classList.add("text_area");
         div_area.style.backgroundColor = colors[getRandomInt(colors.length)];
@@ -60,48 +61,56 @@ function renderMessages(data){
 
         const like = document.createElement('a');
         like.classList.add("bi");
-        if(element.vote === 1){
-            like.classList.add("bi-hand-thumbs-up-fill");          
-        }
-        else{
-            like.classList.add("bi-hand-thumbs-up");
-        }
-        like.onclick= (event) => {
-            event.preventDefault();
-            if(element.vote === 1){
-                deleteVote(element.id, voteRatio);
-                like.classList.remove("bi-hand-thumbs-up-fill");
-                like.classList.add("bi-hand-thumbs-up");
-            }
-            else{
-                addVote(1, element.id, voteRatio);
-                like.classList.remove("bi-hand-thumbs-up");
-                like.classList.add("bi-hand-thumbs-up-fill");
-
-            }
-        };
-        
-        
-        
-        
-
         const dislike = document.createElement('a');
         dislike.classList.add("bi");
-        if(element.vote === -1){
-            dislike.classList.add("bi-hand-thumbs-down-fill");
-            dislike.onclick = (event) => {
-            event.preventDefault();
-            deleteVote(element.id, voteRatio);
+        const UpdateUI = () => {
+            like.className = element.vote === 1 ? "bi bi-hand-thumbs-up-fill" : "bi bi-hand-thumbs-up";
+            dislike.className = element.vote === -1 ? "bi bi-hand-thumbs-down-fill" : "bi bi-hand-thumbs-down";
+            voteRatio.textContent = element.vote;
+            if(!element.vote || element.vote === 0){
+                voteRatio.textContent = 0;
             }
-            
-        }
-        else{
-            dislike.classList.add("bi-hand-thumbs-down");
-            dislike.onclick = (event) => {
+        };
+
+        like.onclick = async (event) => {
             event.preventDefault();
-            addVote(-1, element.id, voteRatio);
+            if(element.vote === 1){
+                await deleteVote(element.id, voteRatio);
+                element.vote = 0;
             }
-        }
+            else if(element.vote === -1){
+                await deleteVote(element.id, voteRatio);
+                await addVote(1, element.id, voteRatio);
+                element.vote = 1;
+            }
+            else{
+                await addVote(1, element.id, voteRatio);
+                element.vote = 1;
+            }
+            UpdateUI();
+        };
+
+        dislike.onclick = async (event) => {
+            console.log(element.vote);
+            event.preventDefault();
+            if(element.vote === -1){
+                await deleteVote(element.id, voteRatio);
+                element.vote = 0;
+            }
+            else if(element.vote === 1){
+                await deleteVote(element.id, voteRatio);
+                await addVote(-1, element.id, voteRatio);
+                element.vote = -1;
+            }
+            else
+            {
+                
+                await addVote(-1, element.id, voteRatio);
+                element.vote = -1;
+            }
+            UpdateUI();
+        };
+        UpdateUI();
         
 
         
